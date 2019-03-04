@@ -34,6 +34,12 @@ class Message
     private $sender;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Conversation")
+     * @ORM\JoinColumn(name="conversation_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $conversation;
+
+    /**
      * @ORM\Column(type="datetime", name="created_at")
      */
     private $created_at;
@@ -71,6 +77,16 @@ class Message
     public function setCreatedAt($created_at): void
     {
         $this->created_at = $created_at;
+    }
+
+    public function getConversation()
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation($conversation): void
+    {
+        $this->conversation = $conversation;
     }
 
 }
