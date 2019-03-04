@@ -8,7 +8,8 @@
 
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 /**
  * @ORM\Table(name="conversation")
  * @ORM\Entity
@@ -34,9 +35,36 @@ class Conversation
     private $creator;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="send_to", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $send_to;
+
+    /**
      * @ORM\Column(type="datetime", name="created_at")
      */
     private $created_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="conversation")
+     */
+    private $messages;
+
+    /**
+     * @return mixed
+     */
+    public function getMessages() : Collection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param mixed $messages
+     */
+    public function setMessages($messages): void
+    {
+        $this->messages = $messages;
+    }
 
     public function getId()
     {
@@ -73,4 +101,24 @@ class Conversation
         $this->created_at = $created_at;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSendTo()
+    {
+        return $this->send_to;
+    }
+
+    /**
+     * @param mixed $send_to
+     */
+    public function setSendTo($send_to): void
+    {
+        $this->send_to = $send_to;
+    }
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 }

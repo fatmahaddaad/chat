@@ -59,6 +59,14 @@ security:
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
+        user:
+            pattern:  ^/user
+            stateless: true
+            anonymous: false
+            provider: entity_provider
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -67,3 +75,4 @@ security:
         - { path: ^/usersShow, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/addConversation, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/addMessage, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user, roles: IS_AUTHENTICATED_FULLY }

@@ -21,6 +21,7 @@ class ChatController extends AbstractController
         $conversation = new Conversation();
         $title = $request->get('title');
         $creator = $this->getUser();
+        $send_to = $this->getDoctrine()->getRepository('App\Entity\User')->find($request->get('send_to'));
         $date = new \DateTime();
 
         if(empty($title))
@@ -31,6 +32,7 @@ class ChatController extends AbstractController
             $conversation->setTitle($title);
             $conversation->setCreatedAt($date);
             $conversation->setCreator($creator);
+            $conversation->setSendTo($send_to);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($conversation);

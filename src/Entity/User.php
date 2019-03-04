@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -50,11 +52,33 @@ class User implements UserInterface
      * @ORM\Column(type="array", length=500)
      */
     protected $roles;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Conversation", mappedBy="creator")
+     */
+    private $conversation;
+
     public function __construct($username)
     {
         $this->isActive = true;
         $this->username = $username;
         $this->roles = array('ROLE_USER');
+        $this->conversation = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConversation() : Collection
+    {
+        return $this->conversation;
+    }
+
+    /**
+     * @param mixed $conversation
+     */
+    public function setConversation($conversation): void
+    {
+        $this->conversation = $conversation;
     }
 
     public function getId()

@@ -37,3 +37,9 @@ addMessage:
     methods:  [POST]
     defaults:
         _format: json
+user:
+    path: /user/{id}
+    controller: App\Controller\UserController::user
+    methods:  [Get]
+    defaults:
+        _format: json
