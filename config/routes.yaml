@@ -16,3 +16,10 @@ login_check:
     methods:  [POST]
     defaults:
         _format: json
+
+usersShow:
+    path: /usersShow
+    controller: App\Controller\UserController::usersShow
+    methods:  [GET]
+    defaults:
+        _format: json
