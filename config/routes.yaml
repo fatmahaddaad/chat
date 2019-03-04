@@ -23,3 +23,17 @@ usersShow:
     methods:  [GET]
     defaults:
         _format: json
+
+addConversation:
+    path: /addConversation
+    controller: App\Controller\ChatController::addConversation
+    methods:  [POST]
+    defaults:
+        _format: json
+
+addMessage:
+    path: /addMessage
+    controller: App\Controller\ChatController::addMessage
+    methods:  [POST]
+    defaults:
+        _format: json
